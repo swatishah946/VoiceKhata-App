@@ -1,8 +1,8 @@
 import { api, ApiError, setAuthToken, setUnauthorizedHandler } from '../api';
 
 const mockFetch = (impl: () => Promise<Partial<Response>>) => {
-  (global as any).fetch = jest.fn(impl);
-  return (global as any).fetch as jest.Mock;
+  (globalThis as any).fetch = jest.fn(impl);
+  return (globalThis as any).fetch as jest.Mock;
 };
 const json = (status: number, body: unknown) => async () => ({ ok: status < 400, status, text: async () => JSON.stringify(body) });
 
@@ -23,14 +23,14 @@ describe('api client', () => {
     mockFetch(async () => {
       throw new TypeError('Network request failed');
     });
-    const err = await api('/parties').catch((e) => e);
+    const err: any = await api('/parties').catch((e: any) => e);
     expect(err).toBeInstanceOf(ApiError);
     expect(err.isOffline).toBe(true);
   });
 
   it('server errors carry the message and body (e.g. which fields are missing)', async () => {
     mockFetch(json(422, { error: 'Missing or invalid details', missing: ['rate'] }));
-    const err = await api('/x').catch((e) => e);
+    const err: any = await api('/x').catch((e: any) => e);
     expect(err).toMatchObject({ status: 422, message: 'Missing or invalid details', body: { missing: ['rate'] } });
   });
 

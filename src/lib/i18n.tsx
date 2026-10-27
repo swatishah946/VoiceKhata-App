@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import * as SecureStore from 'expo-secure-store';
+import { storage } from './storage';
 import type { EntryType, FieldKey } from './types';
 
 /** Hindi first (the people using it think in Hindi), English available in Settings. */
@@ -196,11 +196,11 @@ const KEY = 'vk.lang';
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>('hi');
   useEffect(() => {
-    SecureStore.getItemAsync(KEY).then((v) => (v === 'en' || v === 'hi') && setLangState(v));
+    storage.get(KEY).then((v) => (v === 'en' || v === 'hi') && setLangState(v));
   }, []);
   const setLang = useCallback((l: Lang) => {
     setLangState(l);
-    void SecureStore.setItemAsync(KEY, l);
+    void storage.set(KEY, l);
   }, []);
   const value = useMemo(() => ({ lang, setLang, t: (k: TKey, v?: Record<string, string | number>) => translate(lang, k, v) }), [lang, setLang]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

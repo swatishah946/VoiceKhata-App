@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import * as SecureStore from 'expo-secure-store';
+import { storage } from './storage';
 import { api, ApiError, setAuthToken, setUnauthorizedHandler } from './api';
 import type { Session } from './types';
 
@@ -32,7 +32,7 @@ export function AuthProvider({ children, onLogout }: { children: ReactNode; onLo
     }
     setAuthToken(null);
     setSession(null);
-    await SecureStore.deleteItemAsync(KEY);
+    await storage.remove(KEY);
     await onLogout?.();
   }, [onLogout]);
 
@@ -40,10 +40,10 @@ export function AuthProvider({ children, onLogout }: { children: ReactNode; onLo
     setUnauthorizedHandler(() => {
       setAuthToken(null);
       setSession(null);
-      void SecureStore.deleteItemAsync(KEY);
+      void storage.remove(KEY);
     });
     (async () => {
-      const raw = await SecureStore.getItemAsync(KEY);
+      const raw = await storage.get(KEY);
       if (raw) {
         try {
           const s = JSON.parse(raw) as Session;
@@ -54,11 +54,11 @@ export function AuthProvider({ children, onLogout }: { children: ReactNode; onLo
             .then((me) => {
               const next = { ...s, ...me };
               setSession(next);
-              void SecureStore.setItemAsync(KEY, JSON.stringify(next));
+              void storage.set(KEY, JSON.stringify(next));
             })
             .catch(() => undefined);
         } catch {
-          await SecureStore.deleteItemAsync(KEY);
+          await storage.remove(KEY);
         }
       }
       setReady(true);
@@ -68,7 +68,7 @@ export function AuthProvider({ children, onLogout }: { children: ReactNode; onLo
   const login = useCallback(async (phone: string, pin: string) => {
     const s = await api<Session>('/app/auth/login', { method: 'POST', body: { phone, pin } });
     setAuthToken(s.token);
-    await SecureStore.setItemAsync(KEY, JSON.stringify(s));
+    await storage.set(KEY, JSON.stringify(s));
     setSession(s);
   }, []);
 
