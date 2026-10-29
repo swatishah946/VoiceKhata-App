@@ -1,0 +1,20 @@
+[
+  {"id": "s01", "input": "Siddhi Stone ko 5000 sqft 2x1½ bheja, rate 31.5, loading 1500 laga", "expected": {"intent": "TRANSACTION", "transaction_type": "dispatch", "party_name": "Siddhi Stone", "sqft_quantity": 5000, "unit_rate": 31.5, "loading_charge": 1500}},
+  {"id": "s02", "input": "Ramesh bhai se 50000 payment aaya hai aaj", "expected": {"intent": "TRANSACTION", "transaction_type": "payment", "party_name": "Ramesh", "amount": 50000}},
+  {"id": "s03", "input": "Mohan loader ko 2000 rupaye advance de diye", "expected": {"intent": "TRANSACTION", "transaction_type": "worker_advance", "worker_name": "Mohan", "amount": 2000}},
+  {"id": "s04", "input": "Shiv Roadlines ko bhada 7500 diya", "expected": {"intent": "TRANSACTION", "transaction_type": "freight_payment", "transporter_name": "Shiv Roadlines", "amount": 7500}},
+  {"id": "s05", "input": "2x1.5 ka rate 32 kar do", "expected": {"intent": "UPDATE_PRICE", "updated_stone_type": "2x1½", "updated_rate": 32}},
+  {"id": "s06", "input": "price list bhej do", "expected": {"intent": "GET_PDF"}},
+  {"id": "s07", "input": "Ambika Textile ka hisab bhejo", "expected": {"intent": "GET_KHATA", "person_name": "Ambika Textile"}},
+  {"id": "s08", "input": "रमेश को तीन हज़ार स्क्वायर फुट 3x2 भेजा, रेट 37, टैक्स 5 परसेंट", "expected": {"intent": "TRANSACTION", "transaction_type": "dispatch", "party_name": "Ramesh", "sqft_quantity": 3000, "unit_rate": 37, "tax_percentage": 5}},
+  {"id": "s09", "input": "Gupta ji ko 1200 sqft 4x2 gaya 40 ke bhav se, freight 3000 kaat lo", "expected": {"intent": "TRANSACTION", "transaction_type": "dispatch", "party_name": "Gupta", "sqft_quantity": 1200, "unit_rate": 40, "freight_charge": 3000}},
+  {"id": "s10", "input": "Kishan ko 500 advance", "expected": {"intent": "TRANSACTION", "transaction_type": "worker_advance", "worker_name": "Kishan", "amount": 500}},
+  {"id": "s11", "input": "Mahavir Marbles se ek lakh bees hazaar aaye", "expected": {"intent": "TRANSACTION", "transaction_type": "payment", "party_name": "Mahavir Marbles", "amount": 120000}},
+  {"id": "s12", "input": "Munshi ka khata dikhao", "expected": {"intent": "GET_KHATA", "person_name": "Munshi"}},
+  {"id": "s13", "input": "6x2 wala 48 se 50 kar do", "expected": {"intent": "UPDATE_PRICE", "updated_stone_type": "6x2", "updated_rate": 50}},
+  {"id": "s14", "input": "rate list chahiye customer ko bhejni hai", "expected": {"intent": "GET_PDF"}},
+  {"id": "s15", "input": "Balaji Stone ko 2500 fut 2½x2 bheja 33 rupaye, packing 800 aur loading 1200", "expected": {"intent": "TRANSACTION", "transaction_type": "dispatch", "party_name": "Balaji Stone", "sqft_quantity": 2500, "unit_rate": 33, "packing_charge": 800, "loading_charge": 1200}},
+  {"id": "s16", "input": "Ramesh ka balance kitna hai", "expected": {"intent": "GET_BALANCE", "person_name": "Ramesh"}},
+  {"id": "s17", "input": "Gupta ji pe kitna baaki hai abhi", "expected": {"intent": "GET_BALANCE", "person_name": "Gupta"}},
+  {"id": "s18", "input": "Mahavir Marbles ka poora khata PDF bhejo", "expected": {"intent": "GET_KHATA", "person_name": "Mahavir Marbles"}}
+]

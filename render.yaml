@@ -1,0 +1,26 @@
+# Render Blueprint for the server (Render → New → Blueprint → pick this repo).
+# Secrets are marked sync: false — Render asks for them when you create the service.
+services:
+  - type: web
+    name: voicekhata-app-server
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false

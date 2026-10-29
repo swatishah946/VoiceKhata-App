@@ -1,0 +1,61 @@
+{
+  "name": "voicekhata-app-server",
+  "version": "1.0.0",
+  "description": "VoiceKhata App server: voice entries, ledger and reminders (Express + BullMQ + PostgreSQL)",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node --transpile-only src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "NODE_ENV=test vitest run",
+    "test:watch": "NODE_ENV=test vitest",
+    "test:coverage": "NODE_ENV=test vitest run --coverage",
+    "migrate": "ts-node --transpile-only scripts/migrate.ts",
+    "add-member": "ts-node --transpile-only scripts/add-member.ts",
+    "seed:prices": "ts-node --transpile-only scripts/seed-prices.ts",
+    "eval": "ts-node --transpile-only eval/run-eval.ts",
+    "reconcile": "ts-node --transpile-only scripts/reconcile.ts",
+    "set-pin": "ts-node --transpile-only scripts/set-pin.ts",
+    "accuracy": "ts-node --transpile-only scripts/accuracy.ts",
+    "setup": "ts-node --transpile-only scripts/setup-business.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "bullmq": "^5.79.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.2.0",
+    "ioredis": "^5.11.1",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.11.0",
+    "pdfkit": "^0.19.1",
+    "pg": "^8.22.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^26.0.1",
+    "@types/pdfkit": "^0.17.6",
+    "@types/pg": "^8.20.0",
+    "@types/supertest": "^7.2.1",
+    "@vitest/coverage-v8": "^5.0.2",
+    "fast-check": "^4.10.2",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
